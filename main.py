@@ -30,7 +30,7 @@ back = datetime.now() + timedelta(days=how_many_days_before_back)
 
 notification_manager = NotificationManager()
 flight_search = FlightSearch()
-where_from = input("Enter origin airport: ")
+where_from = input("Enter origin airport: ").upper()
 for destination in sheet_data:
     pprint(f'Getting direct flights for {destination["city"]}...')
     flights = flight_search.check_flight(
@@ -59,16 +59,21 @@ for destination in sheet_data:
 
     if cheapest_flight.price != "N/A" and cheapest_flight.price < destination["lowestPrice"]:
         if is_direct_flight:
-            message = f"Low price alert! Only IDR {cheapest_flight.price} to fly direct "\
+            message = f"Low price alert! ({cheapest_flight.airline}) Only IDR {cheapest_flight.price} to fly direct "\
                       f"from {cheapest_flight.origin_airport} to {cheapest_flight.destination_airport}, "\
                       f"on {cheapest_flight.out_date} until {cheapest_flight.return_date}."
         else:
-            message = f"Low price alert! Only IDR {cheapest_flight.price} to fly " \
+            message = f"Low price alert! ({cheapest_flight.airline}) Only IDR {cheapest_flight.price} to fly " \
                       f"from {cheapest_flight.origin_airport} to {cheapest_flight.destination_airport}, " \
                       f"with {cheapest_flight.stops} stop(s) " \
                       f"departing on {cheapest_flight.out_date} and returning on {cheapest_flight.return_date}."
 
         notification_manager.send_email(customer_email_list, message)
+
+        data_manager.update_lowest_price(
+            row_id=destination["id"],
+            new_price=cheapest_flight.price
+        )
 
         print(f"Check your email. Lower price flight found to {destination['city']}.")
 
