@@ -30,11 +30,14 @@ class DataManager:
                 "lowestPrice": new_price
             },
         }
-        requests.put(
+        response = requests.put(
             url=f'{SHEETY_PUT_ENDPOINT}/{row_id}',
             json=new_data,
             auth=self._authorization,
+            timeout=30
         )
+        response.raise_for_status()
+        print(f"Successfully updated row {row_id}!")
 
     def get_customer_emails(self):
         response = requests.get(url=self.users_endpoint, auth=self._authorization)
