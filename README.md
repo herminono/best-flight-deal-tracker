@@ -46,12 +46,8 @@ A `flight_cache.sqlite` database may be generated during execution and does not 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-cd YOUR_REPOSITORY
+git clone https://github.com/herminono/best-flight-deal-tracker
 ```
-
-Replace the placeholder with your actual repository URL.
-
 ### 2. Create a virtual environment
 
 ```bash
