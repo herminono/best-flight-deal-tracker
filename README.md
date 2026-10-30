@@ -143,7 +143,7 @@ It then searches the destinations listed in the Sheet and sends an email if a re
 ```text
 Subject: New Low Price Flight!
 
-Low price alert! Only IDR 1200000 to fly direct from CGK to SIN,
+Low price alert! (Lion) Only IDR 1200000 to fly direct from CGK to SIN,
 on 2026-11-15 until 2026-11-20.
 ```
 
